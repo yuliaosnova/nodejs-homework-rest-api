@@ -26,9 +26,6 @@ router.get("/", async (req, res, next) => {
     const result = await contacts.listContacts();
     res.json(result);
   } catch (error) {
-    res.status(500).json({
-      message: "Server error",
-    });
     next(error);
   }
 });
@@ -44,10 +41,6 @@ router.get("/:id", async (req, res, next) => {
 
     res.json(result);
   } catch (error) {
-    const { status = 500, message = "Server error" } = error;
-    res.status(status).json({
-      message,
-    });
     next(error);
   }
 });
