@@ -4,6 +4,7 @@ const cors = require("cors");
 require("dotenv").config();
 
 const authRouter = require ("./routes/api/auth-routes");
+const userRouter = require("./routes/api/users");
 const contactsRouter = require("./routes/api/contacts");
 
 const app = express();
@@ -13,9 +14,11 @@ const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 app.use(logger(formatsLogger));
 app.use(cors());
 app.use(express.json());
+app.use(express.static("public")); // дозволяє віддавати статичні файли з папки public
 
 
 app.use("/api/users", authRouter);
+app.use("/api/users", userRouter);
 app.use("/api/contacts", contactsRouter);
 
 app.use((req, res) => {
