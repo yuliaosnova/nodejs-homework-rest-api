@@ -100,28 +100,28 @@ const logout = async (req, res) => {
   });
 };
 
-const resendVerify = async(req, res)=> {
-	const {email} = req.body;
-	const user = await User.findOne({email});
-	if(!user) {
-		 throw HttpError(401);
-	}
-	if(user.verify) {
-		 throw HttpError(400, "Verification has already been passed")
-	}
+const resendVerify = async (req, res) => {
+  const { email } = req.body;
+  const user = await User.findOne({ email });
+  if (!user) {
+    throw HttpError(401);
+  }
+  if (user.verify) {
+    throw HttpError(400, "Verification has already been passed");
+  }
 
-	const verifyEmail = {
-		 to: email,
-		 subject: "Verify email",
-		 html: `<a target="_blank" href="${BASE_URL}/api/users/verify/${user.verificationCode}">Click to verify email</a>`
-	}
+  const verifyEmail = {
+    to: email,
+    subject: "Verify email",
+    html: `<a target="_blank" href="${BASE_URL}/api/users/verify/${user.verificationCode}">Click to verify email</a>`,
+  };
 
-	await sendEmail(verifyEmail);
+  await sendEmail(verifyEmail);
 
-	res.json({
-		 message: "Verification email sent"
-	})
-}
+  res.json({
+    message: "Verification email sent",
+  });
+};
 
 module.exports = {
   register: ctrlWrapper(register),

@@ -9,7 +9,6 @@ const sendEmail = async (data) => {
   const email = {
     ...data,
     from: "yulia.osnova@gmail.com",
-   //  to: "hanna.osnova@gmail.com",
   };
   await sgMail.send(email);
   return true;
