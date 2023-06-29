@@ -18,6 +18,10 @@ router.post(
 
 router.post("/login", validateBody(schemas.loginSchema), ctrl.auth.login);
 
+router.get("/verify/:verificationCode", ctrl.auth.verify);
+
+router.post("/verify", validateBody(schemas.userEmailSchema), ctrl.auth.resendVerify)
+
 router.post("/logout", authenticate, ctrl.auth.logout);
 
 module.exports = router;
